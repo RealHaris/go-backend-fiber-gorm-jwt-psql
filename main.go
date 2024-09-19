@@ -34,8 +34,6 @@ func main() {
         return c.SendString("Hello, World!")
     })
     
-
-    // Auth routes
     app.Post("/register", handlers.Register)
     
     app.Post("/login", handlers.Login)
