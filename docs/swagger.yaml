@@ -1,0 +1,96 @@
+definitions:
+  github_com_RealHaris_go-fiber-backend_internal_dto.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  github_com_RealHaris_go-fiber-backend_internal_dto.LoginResponse:
+    properties:
+      message:
+        type: string
+      token:
+        type: string
+    type: object
+  github_com_RealHaris_go-fiber-backend_internal_dto.RegisterRequest:
+    properties:
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 3
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  github_com_RealHaris_go-fiber-backend_internal_dto.RegisterResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  github_com_RealHaris_go-fiber-backend_internal_errors.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user with username and password
+      parameters:
+      - description: User login details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_dto.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_errors.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_errors.ErrorResponse'
+      summary: Login a user
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with username and password
+      parameters:
+      - description: User registration details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_dto.RegisterResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_RealHaris_go-fiber-backend_internal_errors.ErrorResponse'
+      summary: Register a new user
+swagger: "2.0"
