@@ -1,9 +1,6 @@
 package main
 
 import (
-	"go-fiber-backend/database"
-	"go-fiber-backend/handlers"
-	"go-fiber-backend/middleware"
 	"os"
 	"time"
 
@@ -11,6 +8,11 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+
+	"github.com/RealHaris/go-fiber-backend/database"
+	"github.com/RealHaris/go-fiber-backend/handlers"
+	"github.com/RealHaris/go-fiber-backend/middleware"
+
 )
 
 func main() {
@@ -28,8 +30,14 @@ func main() {
     // Initialize database connection
     database.ConnectDB()
 
+    app.Get("/", func(c *fiber.Ctx) error {
+        return c.SendString("Hello, World!")
+    })
+    
+
     // Auth routes
     app.Post("/register", handlers.Register)
+    
     app.Post("/login", handlers.Login)
 
     // Protected route
